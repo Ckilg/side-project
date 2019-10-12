@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mathimation</title>
+</head>
+<body onload="init()">
+    
+<div class="controls">
+    <label for="size">Size:</label>
+    <input id="size" type="range" name="size" min="10" max="200" value="10">
+
+    <label for="redValue">Red:</label>
+    <input id="redValue" type="range" name="redValue" min="0" max="255" value="210">
+
+    <label for="greenValue">Green:</label>
+    <input id="greenValue" type="range" name="greenValue" min="0" max="255" value="110">
+
+    <label for="blueValue">Blue:</label>
+    <input id="blueValue" type="range" name="blueValue" min="0" max="255" value="210">
+
+    <label for="speed">Speed:</label>
+    <input id="speed" type="range" name="speed" min="0" max="25" value="10">
+</div>
+
+    <canvas id="containmentField" width="500" height="400">
+    </canvas> 
+
+</body>
+<style>
+
+body {
+      text-align: center;
+      background: #123456;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    input {
+      width: 100px;
+    }
+canvas {
+   background: #ffffff;
+   border: #071829 4px solid;
+}
+
+</style>
+
+<script>
+
+
+var context;
+var x=100;
+var y=200;
+var size=10;
+var dx=1;
+var dy=1;
+var canvasWidth = document.getElementById("containmentField").width;
+var canvasHeight = document.getElementById("containmentField").height;
+
+function init()
+  {
+    context= containmentField.getContext('2d');
+    setInterval(draw,10);
+  }
+function draw()
+{    
+    var getSize = document.getElementById("size");
+    var size = getSize.value;
+    var getRed = document.getElementById("redValue");
+    var redValue = getRed.value;
+    var getBlue = document.getElementById("blueValue");
+    var blueValue = getBlue.value;
+    var getGreen = document.getElementById("greenValue");
+    var greenValue = getGreen.value;
+    var getSpeed = document.getElementById("speed");
+    var speed = getSpeed.value;
+   
+
+    context.clearRect(0,0, canvasWidth,canvasHeight);
+    context.beginPath();
+    context.fillStyle = (redValue,greenValue,blueValue,0.3);
+    // Draws a circle of radius 20 at the coordinates 100,100 on the canvas
+    context.arc(x,y,size,0,Math.PI*2,true); 
+    context.closePath();
+    context.fill();
+    if( x<0 || x>canvasWidth) dx=-dx; 
+    if( y<0 || y>canvasHeight) dy=-dy;
+    x+=dx;
+    y+=dy;
+}
+
+//below are the scripts which allow the inputs from the screen to be added to the code directly
+
+// drawingArea.strokeStyle = size;
+
+// const inputs = document.querySelectorAll('.controls input');
+
+// function handleUpdate(){
+//     document.documentElement.setAttribute(this.name, this.value);
+//     console.log(this.name, this.value);
+//     this.name = this.value;
+//     draw();
+// }
+
+// inputs.forEach(input => input.addEventListener('change',handleUpdate));
+// inputs.forEach(input => input.addEventListener('mousemove',handleUpdate));
+
+
+</script>
+</html>
